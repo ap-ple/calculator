@@ -1,6 +1,8 @@
 // TODO: Chain operators
 // TODO: Decimal point input
 // TODO: Negative inputs
+// TODO: Shrink display as number grows larger
+// TODO: Format large outputs in scientific notation
 // TODO: Keyboard support
 
 const PRECISION = 12;
@@ -41,7 +43,7 @@ buttons.forEach(button => {
          primaryDisplayIsUserInput = true;
       });
    }
-   else if (button.innerText === "C") {
+   else if (button.innerText === "AC") {
       button.addEventListener("click", event => {
          primaryDisplay.innerText = "0";
          secondaryDisplay.innerText = "";
@@ -68,16 +70,12 @@ buttons.forEach(button => {
    // operator buttons
    else if (button.innerText.match(/^[\+\-×÷]$/)) {
       button.addEventListener("click", event => {
-         operator = event.target.innerText;
-
          if (leftOperand === null) {
+            operator = event.target.innerText;
+            primaryDisplayIsUserInput = false;
             leftOperand = Number(primaryDisplay.innerText);
+            secondaryDisplay.innerText = `${leftOperand} ${operator}`;
          }
-
-         secondaryDisplay.innerText = `${leftOperand} ${operator}`;
-         
-         // initial input is now stored in secondaryDisplay; primary display needs new input
-         primaryDisplayIsUserInput = false;
       });
    }
    else if (button.innerText === "=") {
