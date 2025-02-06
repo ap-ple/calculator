@@ -72,6 +72,19 @@ buttons.forEach(button => {
          }
       });
    }
+   else if (button.innerText === ".") {
+      button.addEventListener("click", event => {
+         if (primaryDisplayIsUserInput) {
+            if (!primaryDisplay.innerText.match(/\./)) {
+               primaryDisplay.innerText += ".";
+            }
+         }
+         else {
+            primaryDisplay.innerText = "0.";
+            primaryDisplayIsUserInput = true;
+         }
+      });
+   }
    // operator buttons
    else if (button.innerText.match(/^[\+\-×÷]$/)) {
       button.addEventListener("click", event => {
