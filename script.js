@@ -12,16 +12,11 @@ const operate = (operator, a, b) => {
    }
 }
 
-let operator;
-let left;
-let right;
+let operator = null;
+let leftOperand = null;
 
-let screen = document.getElementById("screen");
-
-const setScreenText = (newText) => {
-   screen.innerText = newText;
-   left = newText;
-} 
+let primaryDisplay = document.getElementById("primary-display");
+let secondaryDisplay = document.getElementById("secondary-display");
 
 let buttons = Array.from(document.getElementsByTagName("button"));
 
@@ -29,28 +24,60 @@ buttons.forEach(button => {
    // if digit button, add to display
    if (button.innerText.match(/\d/)) {
       button.addEventListener("click", event => {
-         if (screen.innerText === "0") {
+         if (primaryDisplay.innerText === "0") {
             // input is empty; set new input
-            setScreenText(event.target.innerText);
+            primaryDisplay.innerText = event.target.innerText;
          } else {
-            setScreenText(screen.innerText + event.target.innerText);
+            primaryDisplay.innerText += event.target.innerText;
          }
       });
    }
-   else if (button.innerText === "CE") {
+   else if (button.innerText === "Clear") {
       button.addEventListener("click", event => {
-         setScreenText("0");
+         primaryDisplay.innerText = "0";
+         secondaryDisplay.innerText = "";
+
+         operator = null;
+         leftOperand = null;
       });
    }
    else if (button.innerText === "←") {
       button.addEventListener("click", event => {
-         if (screen.innerText.length === 1) {
-            if (screen.innerText !== "0") {
-               setScreenText("0");
+         if (primaryDisplay.innerText.match(/\d*/)) {
+            primaryDisplay.innerText = "0";
+         }
+         else if (primaryDisplay.innerText.length === 1) {
+            if (primaryDisplay.innerText !== "0") {
+               primaryDisplay.innerText = "0";
             }
          }
          else {
-            setScreenText(screen.innerText.slice(0, -1));
+            primaryDisplay.innerText = primaryDisplay.innerText.slice(0, -1);
+         }
+      });
+   }
+   else if (button.innerText.match(/[\+\-×÷]/)) {
+      button.addEventListener("click", event => {
+         operator = event.target.innerText;
+
+         if (leftOperand === null) {
+            leftOperand = Number(primaryDisplay.innerText);
+            primaryDisplay.innerText = "0";
+         }
+
+         secondaryDisplay.innerText = `${leftOperand} ${operator}`;
+      });
+   }
+   else if (button.innerText === "=") {
+      button.addEventListener("click", event => {
+         if (leftOperand !== null) {
+            let rightOperand = Number(primaryDisplay.innerText);
+
+            primaryDisplay.innerText = operate(operator, leftOperand, rightOperand);
+            secondaryDisplay.innerText = "";
+            
+            operator = null;
+            leftOperand = null;
          }
       });
    }
