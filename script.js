@@ -40,7 +40,7 @@ buttons.forEach(button => {
          primaryDisplayIsUserInput = true;
       });
    }
-   else if (button.innerText === "Clear") {
+   else if (button.innerText === "C") {
       button.addEventListener("click", event => {
          primaryDisplay.innerText = "0";
          secondaryDisplay.innerText = "";
@@ -82,7 +82,7 @@ buttons.forEach(button => {
    }
    else if (button.innerText === "=") {
       button.addEventListener("click", event => {
-         if (leftOperand !== null) {
+         if (primaryDisplayIsUserInput && leftOperand !== null) {
             let rightOperand = Number(primaryDisplay.innerText);
             
             let result = operate(operator, leftOperand, rightOperand);

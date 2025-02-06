@@ -66,5 +66,5 @@ body {
 #inputs div {
    gap: 8px;
    display: flex;
-   justify-content: space-evenly;
+   justify-content: space-between;
 }
