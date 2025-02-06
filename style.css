@@ -15,8 +15,24 @@ body {
 #calculator {
    border: solid;
    border-radius: 12px;
+   padding: 24px;
    width: 300px;
    height: 500px;
    display: flex;
    flex-flow: column;
+}
+
+#buttons {
+   display: flex;
+}
+
+#inputs,
+#operators {
+   display: flex;
+   flex-flow: column;
+}
+
+#inputs div {
+   display: flex;
+   justify-content: space-evenly;
 }
