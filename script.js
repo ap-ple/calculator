@@ -1,4 +1,3 @@
-// TODO: Decimal point input
 // TODO: Negative inputs
 // TODO: Shrink display as number grows larger
 // TODO: Format large outputs in scientific notation
@@ -97,13 +96,13 @@ buttons.forEach(button => {
          else if (primaryDisplayIsUserInput) {
             let rightOperand = Number(primaryDisplay.innerText);
             
-            let result = operate(operator, leftOperand, rightOperand);
-
             // unary + removes trailing zeros
-            primaryDisplay.innerText = + result.toPrecision(PRECISION);
+            let result = + operate(operator, leftOperand, rightOperand).toPrecision(PRECISION);
+
+            primaryDisplay.innerText = result;
             
             operator = event.target.innerText;
-            leftOperand = rightOperand;
+            leftOperand = result;
             primaryDisplayIsUserInput = false;
 
             secondaryDisplay.innerText += ` ${leftOperand} ${operator}`;
