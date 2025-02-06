@@ -23,6 +23,7 @@ body {
    padding: 12px 24px;
    font-size: 32px;
    border: solid;
+   overflow: hidden; 
    border-radius: 12px;
 }
 
