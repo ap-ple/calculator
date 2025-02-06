@@ -1,0 +1,22 @@
+* {
+   margin: 0;
+}
+
+body {
+   height: 100vh;
+   font-family: sans-serif;
+   display: flex;
+   flex-flow: column;
+   justify-content: center;
+   align-items: center;
+   gap: 24px;
+}
+
+#calculator {
+   border: solid;
+   border-radius: 12px;
+   width: 300px;
+   height: 500px;
+   display: flex;
+   flex-flow: column;
+}
