@@ -1,4 +1,3 @@
-// TODO: Chain operators
 // TODO: Decimal point input
 // TODO: Negative inputs
 // TODO: Shrink display as number grows larger
@@ -76,6 +75,20 @@ buttons.forEach(button => {
             leftOperand = Number(primaryDisplay.innerText);
             secondaryDisplay.innerText = `${leftOperand} ${operator}`;
          }
+         else if (primaryDisplayIsUserInput) {
+            let rightOperand = Number(primaryDisplay.innerText);
+            
+            let result = operate(operator, leftOperand, rightOperand);
+
+            // unary + removes trailing zeros
+            primaryDisplay.innerText = + result.toPrecision(PRECISION);
+            
+            operator = event.target.innerText;
+            leftOperand = rightOperand;
+            primaryDisplayIsUserInput = false;
+
+            secondaryDisplay.innerText += ` ${leftOperand} ${operator}`;
+         }
       });
    }
    else if (button.innerText === "=") {
@@ -87,11 +100,12 @@ buttons.forEach(button => {
 
             // unary + removes trailing zeros
             primaryDisplay.innerText = + result.toPrecision(PRECISION);
-            secondaryDisplay.innerText = "";
             
             operator = null;
             leftOperand = null;
             primaryDisplayIsUserInput = false;
+
+            secondaryDisplay.innerText = "";
          }
       });
    }
