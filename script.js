@@ -1,4 +1,3 @@
-// TODO: Negative inputs
 // TODO: Shrink display as number grows larger
 // TODO: Format large outputs in scientific notation
 // TODO: Keyboard support
@@ -81,6 +80,16 @@ buttons.forEach(button => {
          else {
             primaryDisplay.innerText = "0.";
             primaryDisplayIsUserInput = true;
+         }
+      });
+   }
+   else if (button.innerText === "+/-") {
+      button.addEventListener("click", event => {
+         if (primaryDisplay.innerText.match(/^\-/)) {
+            primaryDisplay.innerText = primaryDisplay.innerText.slice(1);
+         }
+         else {
+            primaryDisplay.innerText = "-" + primaryDisplay.innerText;
          }
       });
    }
