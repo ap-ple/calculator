@@ -1,6 +1,7 @@
 // TODO: Chain operators
 // TODO: Decimal point input
 // TODO: Negative inputs
+// TODO: Keyboard support
 
 const PRECISION = 12;
 
@@ -52,9 +53,8 @@ buttons.forEach(button => {
    }
    else if (button.innerText === "←") {
       button.addEventListener("click", event => {
-         // if display is single digit, not a number, or not user input, clear display
+         // if display is single digit or not user input, clear display
          if (primaryDisplay.innerText.match(/^\-?\d$/)
-             || !primaryDisplay.innerText.match(/^\-?\d+\.?\d+$/)
              || !primaryDisplayIsUserInput
             ) {
             primaryDisplay.innerText = "0";
