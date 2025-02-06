@@ -4,7 +4,9 @@
 
 button {
    font-family: monospace;
-   font-size: larger;
+   font-size: 32px;
+   height: 72px;
+   width: 72px;
 }
 
 body {
@@ -43,7 +45,7 @@ body {
    border-radius: 12px;
    padding: 24px;
    gap: 24px;
-   width: 300px;
+   width: 320px;
    height: 500px;
    display: flex;
    flex-flow: column;

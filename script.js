@@ -3,6 +3,7 @@
 // TODO: Shrink display as number grows larger
 // TODO: Format large outputs in scientific notation
 // TODO: Keyboard support
+// TODO: Toggle disabled on buttons with no current function
 
 const PRECISION = 12;
 
@@ -50,6 +51,11 @@ buttons.forEach(button => {
          operator = null;
          leftOperand = null;
          primaryDisplayIsUserInput = false;
+      });
+   }
+   else if (button.innerText === "CE") {
+      button.addEventListener("click", event => {
+         primaryDisplay.innerText = "0";
       });
    }
    else if (button.innerText === "←") {
