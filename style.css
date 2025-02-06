@@ -12,10 +12,20 @@ body {
    gap: 24px;
 }
 
+#screen {
+   display: flex;
+   justify-content: flex-end;
+   padding: 12px 24px;
+   font-size: 32px;
+   border: solid;
+   border-radius: 12px;
+}
+
 #calculator {
    border: solid;
    border-radius: 12px;
    padding: 24px;
+   gap: 24px;
    width: 300px;
    height: 500px;
    display: flex;
@@ -24,15 +34,18 @@ body {
 
 #buttons {
    display: flex;
+   justify-content: space-between;
 }
 
 #inputs,
 #operators {
+   gap: 8px;
    display: flex;
    flex-flow: column;
 }
 
 #inputs div {
+   gap: 8px;
    display: flex;
    justify-content: space-evenly;
 }
