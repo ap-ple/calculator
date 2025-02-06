@@ -1,3 +1,6 @@
+// TODO: Round down results
+// TODO: Chain operators
+
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
@@ -43,7 +46,8 @@ buttons.forEach(button => {
    }
    else if (button.innerText === "←") {
       button.addEventListener("click", event => {
-         if (primaryDisplay.innerText.match(/\d*/)) {
+         // if not number, clear all
+         if (!primaryDisplay.innerText.match(/\d+/)) {
             primaryDisplay.innerText = "0";
          }
          else if (primaryDisplay.innerText.length === 1) {
