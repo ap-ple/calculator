@@ -1,7 +1,7 @@
 // TODO: Shrink display as number grows larger
 // TODO: Keyboard support
 
-const PRECISION = 12;
+const PRECISION = 5;
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
@@ -109,7 +109,7 @@ buttons.forEach(button => {
             let rightOperand = Number(primaryDisplay.innerText);
             
             // unary + removes trailing zeros
-            let result = + operate(operator, leftOperand, rightOperand).toPrecision(PRECISION);
+            let result = + operate(operator, leftOperand, rightOperand).toFixed(PRECISION);
 
             primaryDisplay.innerText = result;
             
@@ -127,7 +127,7 @@ buttons.forEach(button => {
             let rightOperand = Number(primaryDisplay.innerText);
             
             // unary + removes trailing zeros
-            let result = + operate(operator, leftOperand, rightOperand).toPrecision(PRECISION);
+            let result = + operate(operator, leftOperand, rightOperand).toFixed(PRECISION);
 
             primaryDisplay.innerText = result;
             
