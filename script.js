@@ -17,9 +17,17 @@ const operate = (operator, a, b) => {
    }
 }
 
-const toggleDisabledElements = (elements) => {
+const disableElementsAtCharacterLimit = (elements) => {
+   if (primaryDisplay.innerText.match(/[^\-]+/).length >= CHARACTER_LIMIT) {
+      elements.forEach(element => {
+         element.toggleAttribute("disabled");
+      });
+   }
+}
+
+const enableElements = (elements) => {
    elements.forEach(element => {
-      element.toggleAttribute("disabled");
+      element.disabled = false;
    });
 }
 
@@ -34,12 +42,6 @@ let secondaryDisplay = document.getElementById("secondary-display");
 let buttons = Array.from(document.getElementsByTagName("button"));
 let inputs = [];
 
-const toggleDisabledInputsAtCharacterLimit = () => {
-   if (primaryDisplayIsUserInput && primaryDisplay.innerText.length >= CHARACTER_LIMIT) {
-      toggleDisabledElements(inputs);
-   }
-}
-
 buttons.forEach(button => {
    // digit buttons
    if (button.innerText.match(/^\d$/)) {
@@ -52,34 +54,35 @@ buttons.forEach(button => {
          } else {
             primaryDisplay.innerText += event.target.innerText;
          }
+
          primaryDisplayIsUserInput = true;
          expressionInProgress = false;
 
-         toggleDisabledInputsAtCharacterLimit();
+         disableElementsAtCharacterLimit(inputs);
       });
    }
    else if (button.innerText === "AC") {
       button.addEventListener("click", event => {
-         toggleDisabledInputsAtCharacterLimit();
-
          primaryDisplay.innerText = "0";
          secondaryDisplay.innerText = "";
 
          operator = null;
          leftOperand = null;
          primaryDisplayIsUserInput = false;
+         enableElements(inputs);
       });
    }
    else if (button.innerText === "CE") {
       button.addEventListener("click", event => {
-         toggleDisabledInputsAtCharacterLimit();
-
          primaryDisplay.innerText = "0";
+
+         primaryDisplayIsUserInput = false;
+         enableElements(inputs);
       });
    }
    else if (button.innerText === "⌫") {
       button.addEventListener("click", event => {
-         toggleDisabledInputsAtCharacterLimit();
+         enableElements(inputs);
 
          // if display is single digit or not user input, clear display
          if (primaryDisplay.innerText.match(/^\-?\d$/)
@@ -107,7 +110,7 @@ buttons.forEach(button => {
             primaryDisplayIsUserInput = true;
          }
 
-         toggleDisabledInputsAtCharacterLimit();
+         disableElementsAtCharacterLimit(inputs);
       });
    }
    else if (button.innerText === "+/-") {
@@ -126,11 +129,11 @@ buttons.forEach(button => {
    else if (button.innerText.match(/^[\+\-×÷]$/)) {
       button.addEventListener("click", event => {
          expressionInProgress = true;
-         toggleDisabledInputsAtCharacterLimit();
+         primaryDisplayIsUserInput = false;
+         enableElements(inputs);
          
          if (leftOperand === null) {
             operator = event.target.innerText;
-            primaryDisplayIsUserInput = false;
             leftOperand = Number(primaryDisplay.innerText);
             secondaryDisplay.innerText = `${leftOperand} ${operator}`;
          }
@@ -144,7 +147,6 @@ buttons.forEach(button => {
             
             operator = event.target.innerText;
             leftOperand = result;
-            primaryDisplayIsUserInput = false;
 
             secondaryDisplay.innerText += ` ${rightOperand} ${operator}`;
          }
@@ -153,7 +155,8 @@ buttons.forEach(button => {
    else if (button.innerText === "=") {
       button.addEventListener("click", event => {
          if (primaryDisplayIsUserInput && leftOperand !== null) {
-            toggleDisabledInputsAtCharacterLimit();
+            primaryDisplayIsUserInput = false;
+            enableElements(inputs);
 
             let rightOperand = Number(primaryDisplay.innerText);
             
@@ -164,7 +167,6 @@ buttons.forEach(button => {
             
             operator = null;
             leftOperand = null;
-            primaryDisplayIsUserInput = false;
             expressionInProgress = false;
 
             secondaryDisplay.innerText = "";
