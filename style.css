@@ -2,9 +2,9 @@
    margin: 0;
 }
 
-button {
+#calculator button {
    font-family: monospace;
-   font-size: 32px;
+   font-size: 22px;
    height: 72px;
    width: 72px;
 }
