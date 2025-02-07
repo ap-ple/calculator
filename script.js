@@ -153,6 +153,8 @@ buttons.forEach(button => {
    else if (button.innerText === "=") {
       button.addEventListener("click", event => {
          if (primaryDisplayIsUserInput && leftOperand !== null) {
+            toggleDisabledInputsAtCharacterLimit();
+
             let rightOperand = Number(primaryDisplay.innerText);
             
             // unary + removes trailing zeroes
