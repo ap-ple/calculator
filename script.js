@@ -1,7 +1,5 @@
 // TODO: Shrink display as number grows larger
-// TODO: Format large outputs in scientific notation
 // TODO: Keyboard support
-// TODO: Toggle disabled on buttons with no current function
 
 const PRECISION = 12;
 
@@ -58,7 +56,7 @@ buttons.forEach(button => {
          primaryDisplay.innerText = "0";
       });
    }
-   else if (button.innerText === "←") {
+   else if (button.innerText === "⌫") {
       button.addEventListener("click", event => {
          // if display is single digit or not user input, clear display
          if (primaryDisplay.innerText.match(/^\-?\d$/)
