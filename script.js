@@ -142,8 +142,8 @@ buttons.forEach(button => {
          else if (primaryDisplayIsUserInput) {
             let rightOperand = Number(primaryDisplay.innerText);
             
-            // unary + removes trailing zeroes
-            let result = + operate(operator, leftOperand, rightOperand).toFixed(PRECISION);
+            // Number function removes trailing zeroes
+            let result = Number(operate(operator, leftOperand, rightOperand).toFixed(PRECISION));
 
             primaryDisplay.innerText = result;
             
@@ -164,8 +164,8 @@ buttons.forEach(button => {
 
             let rightOperand = Number(primaryDisplay.innerText);
             
-            // unary + removes trailing zeroes
-            let result = + operate(operator, leftOperand, rightOperand).toFixed(PRECISION);
+            // Number function removes trailing zeroes
+            let result = Number(operate(operator, leftOperand, rightOperand).toFixed(PRECISION));
 
             primaryDisplay.innerText = result;
             
