@@ -1,6 +1,7 @@
 // TODO: Keyboard support
 
 const PRECISION = 10;
+const CHARACTER_LIMIT = 22;
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
@@ -16,6 +17,12 @@ const operate = (operator, a, b) => {
    }
 }
 
+const toggleDisabledElements = (elements) => {
+   elements.forEach(element => {
+      element.toggleAttribute("disabled");
+   });
+}
+
 let operator = null;
 let leftOperand = null;
 let primaryDisplayIsUserInput = false;
@@ -25,10 +32,19 @@ let primaryDisplay = document.getElementById("primary-display");
 let secondaryDisplay = document.getElementById("secondary-display");
 
 let buttons = Array.from(document.getElementsByTagName("button"));
+let inputs = [];
+
+const toggleDisabledInputsAtCharacterLimit = () => {
+   if (primaryDisplayIsUserInput && primaryDisplay.innerText.length >= CHARACTER_LIMIT) {
+      toggleDisabledElements(inputs);
+   }
+}
 
 buttons.forEach(button => {
    // digit buttons
    if (button.innerText.match(/^\d$/)) {
+      inputs.push(button);
+
       button.addEventListener("click", event => {
          if (!primaryDisplayIsUserInput || primaryDisplay.innerText === "0") {
             // input is empty; set new input
@@ -38,10 +54,14 @@ buttons.forEach(button => {
          }
          primaryDisplayIsUserInput = true;
          expressionInProgress = false;
+
+         toggleDisabledInputsAtCharacterLimit();
       });
    }
    else if (button.innerText === "AC") {
       button.addEventListener("click", event => {
+         toggleDisabledInputsAtCharacterLimit();
+
          primaryDisplay.innerText = "0";
          secondaryDisplay.innerText = "";
 
@@ -52,11 +72,15 @@ buttons.forEach(button => {
    }
    else if (button.innerText === "CE") {
       button.addEventListener("click", event => {
+         toggleDisabledInputsAtCharacterLimit();
+
          primaryDisplay.innerText = "0";
       });
    }
    else if (button.innerText === "⌫") {
       button.addEventListener("click", event => {
+         toggleDisabledInputsAtCharacterLimit();
+
          // if display is single digit or not user input, clear display
          if (primaryDisplay.innerText.match(/^\-?\d$/)
              || !primaryDisplayIsUserInput
@@ -70,6 +94,8 @@ buttons.forEach(button => {
       });
    }
    else if (button.innerText === ".") {
+      inputs.push(button);
+
       button.addEventListener("click", event => {
          if (primaryDisplayIsUserInput) {
             if (!primaryDisplay.innerText.match(/\./)) {
@@ -80,6 +106,8 @@ buttons.forEach(button => {
             primaryDisplay.innerText = "0.";
             primaryDisplayIsUserInput = true;
          }
+
+         toggleDisabledInputsAtCharacterLimit();
       });
    }
    else if (button.innerText === "+/-") {
@@ -98,6 +126,8 @@ buttons.forEach(button => {
    else if (button.innerText.match(/^[\+\-×÷]$/)) {
       button.addEventListener("click", event => {
          expressionInProgress = true;
+         toggleDisabledInputsAtCharacterLimit();
+         
          if (leftOperand === null) {
             operator = event.target.innerText;
             primaryDisplayIsUserInput = false;
