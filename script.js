@@ -1,7 +1,6 @@
-// TODO: Shrink display as number grows larger
 // TODO: Keyboard support
 
-const PRECISION = 5;
+const PRECISION = 10;
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
