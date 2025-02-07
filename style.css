@@ -33,6 +33,7 @@ body {
 
 #secondary-display {
    font-size: 12px;
+   text-align: right;
    color: gray;
 }
 
