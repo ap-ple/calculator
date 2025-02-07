@@ -18,7 +18,7 @@ const operate = (operator, a, b) => {
 }
 
 const disableElementsAtCharacterLimit = (elements) => {
-   if (primaryDisplay.innerText.match(/[^\-]+/).length >= CHARACTER_LIMIT) {
+   if (primaryDisplay.innerText.match(/[^\-]*/)[0].length >= CHARACTER_LIMIT) {
       elements.forEach(element => {
          element.toggleAttribute("disabled");
       });
