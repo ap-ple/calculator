@@ -1,4 +1,6 @@
 // TODO: Keyboard support
+// TODO: Show full calculation in secondary display after enter is pressed
+// TODO: Repeat last calculation if enter is pressed a second time
 
 const PRECISION = 10;
 const CHARACTER_LIMIT = 20;
@@ -153,6 +155,11 @@ buttons.forEach(button => {
             leftOperand = result;
             
             secondaryDisplay.innerText += ` ${rightOperand} ${operator}`;
+         }
+         else {
+            operator = event.target.innerText;
+
+            secondaryDisplay.innerText = secondaryDisplay.innerText.slice(0, -1) + operator;
          }
       });
    }
