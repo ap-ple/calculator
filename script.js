@@ -114,7 +114,7 @@ buttons.forEach(button => {
             leftOperand = result;
             primaryDisplayIsUserInput = false;
 
-            secondaryDisplay.innerText += ` ${leftOperand} ${operator}`;
+            secondaryDisplay.innerText += ` ${rightOperand} ${operator}`;
          }
       });
    }
