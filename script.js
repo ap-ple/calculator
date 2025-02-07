@@ -129,12 +129,14 @@ buttons.forEach(button => {
    else if (button.innerText.match(/^[\+\-×÷]$/)) {
       button.addEventListener("click", event => {
          expressionInProgress = true;
-         primaryDisplayIsUserInput = false;
          enableElements(inputs);
          
          if (leftOperand === null) {
+            primaryDisplayIsUserInput = false;
+
             operator = event.target.innerText;
             leftOperand = Number(primaryDisplay.innerText);
+
             secondaryDisplay.innerText = `${leftOperand} ${operator}`;
          }
          else if (primaryDisplayIsUserInput) {
@@ -145,9 +147,11 @@ buttons.forEach(button => {
 
             primaryDisplay.innerText = result;
             
+            primaryDisplayIsUserInput = false;
+            
             operator = event.target.innerText;
             leftOperand = result;
-
+            
             secondaryDisplay.innerText += ` ${rightOperand} ${operator}`;
          }
       });
