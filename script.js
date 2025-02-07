@@ -22,6 +22,7 @@ const operate = (operator, a, b) => {
 let operator = null;
 let leftOperand = null;
 let primaryDisplayIsUserInput = false;
+let expressionInProgress = false;
 
 let primaryDisplay = document.getElementById("primary-display");
 let secondaryDisplay = document.getElementById("secondary-display");
@@ -39,6 +40,7 @@ buttons.forEach(button => {
             primaryDisplay.innerText += event.target.innerText;
          }
          primaryDisplayIsUserInput = true;
+         expressionInProgress = false;
       });
    }
    else if (button.innerText === "AC") {
@@ -85,17 +87,20 @@ buttons.forEach(button => {
    }
    else if (button.innerText === "+/-") {
       button.addEventListener("click", event => {
-         if (primaryDisplay.innerText.match(/^\-/)) {
-            primaryDisplay.innerText = primaryDisplay.innerText.slice(1);
-         }
-         else {
-            primaryDisplay.innerText = "-" + primaryDisplay.innerText;
+         if (!expressionInProgress) {
+            if (primaryDisplay.innerText.match(/^\-/)) {
+               primaryDisplay.innerText = primaryDisplay.innerText.slice(1);
+            }
+            else {
+               primaryDisplay.innerText = "-" + primaryDisplay.innerText;
+            }
          }
       });
    }
    // operator buttons
    else if (button.innerText.match(/^[\+\-×÷]$/)) {
       button.addEventListener("click", event => {
+         expressionInProgress = true;
          if (leftOperand === null) {
             operator = event.target.innerText;
             primaryDisplayIsUserInput = false;
@@ -131,6 +136,7 @@ buttons.forEach(button => {
             operator = null;
             leftOperand = null;
             primaryDisplayIsUserInput = false;
+            expressionInProgress = false;
 
             secondaryDisplay.innerText = "";
          }
