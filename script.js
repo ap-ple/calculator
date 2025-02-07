@@ -1,7 +1,7 @@
 // TODO: Keyboard support
 
 const PRECISION = 10;
-const CHARACTER_LIMIT = 22;
+const CHARACTER_LIMIT = 20;
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
