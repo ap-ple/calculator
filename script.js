@@ -108,7 +108,8 @@ buttons.forEach(button => {
          else if (primaryDisplayIsUserInput) {
             let rightOperand = Number(primaryDisplay.innerText);
             
-            let result = operate(operator, leftOperand, rightOperand).toFixed(PRECISION);
+            // unary + removes trailing zeroes
+            let result = + operate(operator, leftOperand, rightOperand).toFixed(PRECISION);
 
             primaryDisplay.innerText = result;
             
@@ -125,7 +126,8 @@ buttons.forEach(button => {
          if (primaryDisplayIsUserInput && leftOperand !== null) {
             let rightOperand = Number(primaryDisplay.innerText);
             
-            let result = operate(operator, leftOperand, rightOperand).toFixed(PRECISION);
+            // unary + removes trailing zeroes
+            let result = + operate(operator, leftOperand, rightOperand).toFixed(PRECISION);
 
             primaryDisplay.innerText = result;
             
