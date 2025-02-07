@@ -19,20 +19,6 @@ const operate = (operator, a, b) => {
    }
 }
 
-const disableElementsAtCharacterLimit = (elements) => {
-   if (primaryDisplay.innerText.match(/[^\-]*/)[0].length >= CHARACTER_LIMIT) {
-      elements.forEach(element => {
-         element.toggleAttribute("disabled");
-      });
-   }
-}
-
-const enableElements = (elements) => {
-   elements.forEach(element => {
-      element.disabled = false;
-   });
-}
-
 let operator = null;
 let leftOperand = null;
 let primaryDisplayIsUserInput = false;
@@ -41,8 +27,23 @@ let primaryDisplayIsRunningTotal = false;
 let primaryDisplay = document.getElementById("primary-display");
 let secondaryDisplay = document.getElementById("secondary-display");
 
-let buttons = Array.from(document.getElementsByTagName("button"));
 let inputs = [];
+
+const disableInputsIfCharacterLimitReached = () => {
+   if (primaryDisplay.innerText.match(/[^\-]*/)[0].length >= CHARACTER_LIMIT) {
+      inputs.forEach(input => {
+         input.disabled = true;
+      });
+   }
+}
+
+const enableInputs = () => {
+   inputs.forEach(input => {
+      input.disabled = false;
+   });
+}
+
+let buttons = Array.from(document.getElementsByTagName("button"));
 
 buttons.forEach(button => {
    // digit buttons
@@ -60,7 +61,7 @@ buttons.forEach(button => {
          primaryDisplayIsUserInput = true;
          primaryDisplayIsRunningTotal = false;
 
-         disableElementsAtCharacterLimit(inputs);
+         disableInputsIfCharacterLimitReached();
       });
    }
    else if (button.innerText === "AC") {
@@ -71,7 +72,7 @@ buttons.forEach(button => {
          operator = null;
          leftOperand = null;
          primaryDisplayIsUserInput = false;
-         enableElements(inputs);
+         enableInputs();
       });
    }
    else if (button.innerText === "CE") {
@@ -79,12 +80,12 @@ buttons.forEach(button => {
          primaryDisplay.innerText = "0";
 
          primaryDisplayIsUserInput = false;
-         enableElements(inputs);
+         enableInputs();
       });
    }
    else if (button.innerText === "⌫") {
       button.addEventListener("click", event => {
-         enableElements(inputs);
+         enableInputs();
 
          // if display is single digit or not user input, clear display
          if (primaryDisplay.innerText.match(/^\-?\d$/)
@@ -112,7 +113,7 @@ buttons.forEach(button => {
             primaryDisplayIsUserInput = true;
          }
 
-         disableElementsAtCharacterLimit(inputs);
+         disableInputsIfCharacterLimitReached();
       });
    }
    else if (button.innerText === "+/-") {
@@ -131,7 +132,7 @@ buttons.forEach(button => {
    else if (button.innerText.match(/^[\+\-×÷]$/)) {
       button.addEventListener("click", event => {
          primaryDisplayIsRunningTotal = true;
-         enableElements(inputs);
+         enableInputs(inputs);
          
          if (leftOperand === null) {
             primaryDisplayIsUserInput = false;
@@ -167,7 +168,7 @@ buttons.forEach(button => {
       button.addEventListener("click", event => {
          if (primaryDisplayIsUserInput && leftOperand !== null) {
             primaryDisplayIsUserInput = false;
-            enableElements(inputs);
+            enableInputs();
 
             let rightOperand = Number(primaryDisplay.innerText);
             
