@@ -34,7 +34,7 @@ const enableElements = (elements) => {
 let operator = null;
 let leftOperand = null;
 let primaryDisplayIsUserInput = false;
-let runningTotal = false;
+let primaryDisplayIsRunningTotal = false;
 
 let primaryDisplay = document.getElementById("primary-display");
 let secondaryDisplay = document.getElementById("secondary-display");
@@ -56,7 +56,7 @@ buttons.forEach(button => {
          }
 
          primaryDisplayIsUserInput = true;
-         runningTotal = false;
+         primaryDisplayIsRunningTotal = false;
 
          disableElementsAtCharacterLimit(inputs);
       });
@@ -115,7 +115,7 @@ buttons.forEach(button => {
    }
    else if (button.innerText === "+/-") {
       button.addEventListener("click", event => {
-         if (!runningTotal) {
+         if (!primaryDisplayIsRunningTotal) {
             if (primaryDisplay.innerText.match(/^\-/)) {
                primaryDisplay.innerText = primaryDisplay.innerText.slice(1);
             }
@@ -128,7 +128,7 @@ buttons.forEach(button => {
    // operator buttons
    else if (button.innerText.match(/^[\+\-×÷]$/)) {
       button.addEventListener("click", event => {
-         runningTotal = true;
+         primaryDisplayIsRunningTotal = true;
          enableElements(inputs);
          
          if (leftOperand === null) {
@@ -171,7 +171,7 @@ buttons.forEach(button => {
             
             operator = null;
             leftOperand = null;
-            runningTotal = false;
+            primaryDisplayIsRunningTotal = false;
 
             secondaryDisplay.innerText = "";
          }
