@@ -46,8 +46,6 @@ body {
    border-radius: 12px;
    padding: 24px;
    gap: 24px;
-   width: 340px;
-   height: 500px;
    display: flex;
    flex-flow: column;
 }
