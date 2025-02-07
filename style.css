@@ -26,9 +26,9 @@ body {
    align-items: flex-end;
    padding: 12px 24px;
    height: 60px;
-   border: solid;
-   overflow: hidden; 
+   border: solid 1px;
    border-radius: 12px;
+   overflow: hidden;
 }
 
 #secondary-display {
@@ -41,7 +41,7 @@ body {
 }
 
 #calculator {
-   border: solid;
+   border: solid 1px;
    border-radius: 12px;
    padding: 24px;
    gap: 24px;
